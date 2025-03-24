@@ -15,7 +15,7 @@ async function getCharacter(name: string) {
   return data;
 }
 
-export default async function CharacterDetail({ params }: { params: { name: string } }) {
+export default async function CharacterDetail({ params }: { params: Promise<{ name: string }> }) {
   const resolvedParams = await params; // 【変更不可！】params を解決
   const character = await getCharacter(resolvedParams.name); // 【変更不可！】解決された params を使用
 
