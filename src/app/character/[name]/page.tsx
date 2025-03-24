@@ -1,4 +1,7 @@
+// src/app/character/[name]/page.tsx
+
 import { supabase } from '../../supabaseClient';
+import UpdatedCharacter from './UpdateCharacter';
 
 async function getCharacter(name: string) {
   const { data, error } = await supabase
@@ -15,7 +18,7 @@ async function getCharacter(name: string) {
   return data;
 }
 
-export default async function CharacterDetail({ params }: { params: Promise<{ name: string }> }) {
+export default async function CharacterDetail({ params }: { params: Promise<{ name: string }> }) { // 【変更不可！】Promise
   const resolvedParams = await params; // 【変更不可！】params を解決
   const character = await getCharacter(resolvedParams.name); // 【変更不可！】解決された params を使用
 
@@ -27,7 +30,8 @@ export default async function CharacterDetail({ params }: { params: Promise<{ na
     <div>
       <h1>{character.name}</h1>
       <p>Rarity: {character.rarity}</p>
-      {/* 他のキャラ詳細情報を表示 */}
+      {/* 他の情報を表示 */}
+      <UpdatedCharacter character={character} />
     </div>
   );
 }
